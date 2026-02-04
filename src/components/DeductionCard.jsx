@@ -1,6 +1,11 @@
-import { calculatePersonalizedCap, formatCurrency } from '../utils/taxCalculations'
+import { calculatePersonalizedCap, formatCurrency, shouldHideDeduction } from '../utils/taxCalculations'
 
 export default function DeductionCard({ deduction, profile }) {
+  // Hide card if requirements not met (e.g., mortgage interest for non-homeowners)
+  if (shouldHideDeduction(deduction, profile)) {
+    return null
+  }
+
   const hasProfile = profile && profile.person1BirthYear
   const capInfo = hasProfile
     ? calculatePersonalizedCap(deduction, profile)
@@ -22,20 +27,35 @@ export default function DeductionCard({ deduction, profile }) {
       {/* Cap display */}
       <div className="mt-3">
         {hasProfile && capInfo ? (
-          <div className="space-y-1">
-            <div className="flex items-baseline gap-2">
-              <span className="text-lg font-semibold text-blue-600">
-                {formatCurrency(capInfo.totalCap)}
-              </span>
-              <span className="text-sm text-slate-500">your cap</span>
+          capInfo.isFullyDeductible ? (
+            // Fully deductible case (mortgage interest 0-1 years)
+            <div className="space-y-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-lg font-semibold text-green-600">
+                  Fully deductible
+                </span>
+              </div>
+              {capInfo.fullyDeductibleNote && (
+                <p className="text-xs text-slate-500">{capInfo.fullyDeductibleNote}</p>
+              )}
             </div>
-            {capInfo.explanation && (
-              <p className="text-xs text-slate-500">{capInfo.explanation}</p>
-            )}
-            {capInfo.ageNote && (
-              <p className="text-xs text-slate-500">{capInfo.ageNote}</p>
-            )}
-          </div>
+          ) : (
+            // Normal cap display
+            <div className="space-y-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-lg font-semibold text-blue-600">
+                  {formatCurrency(capInfo.totalCap)}
+                </span>
+                <span className="text-sm text-slate-500">your cap</span>
+              </div>
+              {capInfo.explanation && (
+                <p className="text-xs text-slate-500">{capInfo.explanation}</p>
+              )}
+              {capInfo.ageNote && (
+                <p className="text-xs text-slate-500">{capInfo.ageNote}</p>
+              )}
+            </div>
+          )
         ) : (
           <span className="inline-block rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
             {deduction.capDisplay}

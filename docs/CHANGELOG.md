@@ -36,7 +36,7 @@ This document tracks weekly progress: what was built, what was fixed, and what w
 
 ## Recent entries
 
-### Week of 2026-01-26 to 2026-02-04
+### Week of 2026-01-26 to 2026-02-04 (Weeks 1-2)
 
 #### Done
 - [x] Week 1: Single-page React app with Tailwind - 8 deduction category cards
@@ -52,21 +52,34 @@ This document tracks weekly progress: what was built, what was fixed, and what w
 - [x] Week 2: Marital status dropdown (Single/Married)
 - [x] Week 2: Children count input (0-10)
 - [x] Week 2: localStorage persistence for profile data
+- [x] Week 2: Age-based home savings cap calculation (€1,344 ≤40, €672 >40)
+- [x] Week 2: Personalized caps with household multiplier logic
+- [x] Week 2: `includesChildren` flag - some caps include children, others don't
+- [x] Week 2: Homeowner status input with conditional mortgage year tier
+- [x] Week 2: Mortgage interest tier caps (€4,000/€3,000/€2,000 based on years)
+- [x] Week 2: "Fully deductible" case for new homeowners (0-1 years)
+- [x] Week 2: Conditional card hiding (mortgage hidden for non-homeowners)
+- [x] Week 2: Explanation strings (e.g., "€672 × 4 (2 adults + 2 children)")
 
 #### Changed
 - `src/App.jsx`: Added ProfileSection component above deduction catalog
-- `src/components/ProfileSection.jsx`: Created new profile input form
+- `src/components/ProfileSection.jsx`: Created profile form with 6 inputs + validation
+- `src/components/DeductionCard.jsx`: Added personalized cap display with explanations
+- `src/utils/taxCalculations.js`: Created calculation logic (age, multiplier, caps)
+- `src/data/deductions.js`: Added `isPerPerson`, `includesChildren`, `requiresHomeOwner`, `mortgageCaps` flags
 - `docs/PROJECT_CONTEXT.md`: Added comprehensive project context for AI assistance
 
 #### Fixed
 - npm permission error when installing Claude Code (used sudo)
 - Cursor free plan limit exhausted (switched to Claude Code)
 - Tool confusion (clarified: Perplexity = research, Claude Code = building)
+- Insurance & loan interest cap calculation (now includes children in multiplier)
+- Mortgage interest source URL (updated to official A-Z entry)
 
 #### Deferred / Next week
-- [ ] Week 2 completion: Age-based home savings cap calculation
-- [ ] Week 2 completion: Personalized caps (married × 2 logic)
 - [ ] Week 3: Expense tracking with progress bars
+- [ ] Week 3: Unutilized amount calculations
+- [ ] Week 3: Summary section with totals
 
 ---
 

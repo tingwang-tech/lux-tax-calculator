@@ -146,6 +146,81 @@ This document records why certain architecture and project decisions were made, 
 
 ---
 
+### ADR-005: Data-driven cap calculation with flags
+
+**Date:** 2026-02-04
+
+**Context**
+- Different deductions have different rules for calculating household caps
+- Some caps multiply by adults only (pensions), others include children (insurance, home savings)
+- Some deductions require additional profile info (mortgage needs homeowner status + year tier)
+- Need flexible system that doesn't hardcode deduction IDs in calculation logic
+
+**Options considered**
+1. **Hardcode logic per deduction ID:** Simple but brittle, calculation logic knows deduction names
+2. **Configuration flags in data file:** Flexible, data-driven, calculation logic is generic
+3. **Separate config file for rules:** More complex, harder to maintain
+
+**Decision**
+- We chose: Configuration flags in `deductions.js`
+- In practice: Each deduction has flags like `isPerPerson`, `includesChildren`, `requiresHomeOwner`, `isAgeBased`, `mortgageCaps` that control calculation behavior
+
+**Consequences**
+- Positive: Adding new deductions requires only data changes, not code changes; calculation logic is testable and generic; easy to see all rules at a glance in data file
+- Negative / trade-offs: Data file is more complex; need to understand flag meanings
+- Revisit when: If rules become too complex to express with flags (need rule engine)
+
+---
+
+### ADR-006: Conditional card visibility based on profile
+
+**Date:** 2026-02-04
+
+**Context**
+- Mortgage interest deduction only applies to homeowners
+- Showing mortgage card to non-homeowners creates confusion
+- Need way to conditionally show/hide cards based on profile
+
+**Options considered**
+1. **Always show all cards:** Simpler but confusing for users who aren't homeowners
+2. **Hide irrelevant cards:** Cleaner UX, only show what applies
+3. **Gray out irrelevant cards:** Shows what exists but not applicable
+
+**Decision**
+- We chose: Hide irrelevant cards
+- In practice: `shouldHideDeduction()` function checks `requiresHomeOwner` flag against profile; card returns `null` if hidden
+
+**Consequences**
+- Positive: Cleaner UX, less cognitive load, users only see relevant deductions
+- Negative / trade-offs: Users might not know mortgage deduction exists if they forget to select homeowner; could add "You may also qualify for..." section later
+- Revisit when: If users complain about missing information, or if we add more conditional deductions
+
+---
+
+### ADR-007: Live updates vs submit button for profile
+
+**Date:** 2026-02-04
+
+**Context**
+- Profile has ~6 inputs (birth years, marital status, children, homeowner, mortgage tier)
+- Need to decide when to update cap calculations: on every change or on submit
+
+**Options considered**
+1. **Submit button:** Traditional form pattern, explicit action
+2. **Live updates:** Instant feedback on every change
+3. **Hybrid:** Live preview with explicit save button
+
+**Decision**
+- We chose: Live updates (no submit button)
+- In practice: Every input change triggers immediate recalculation and localStorage save
+
+**Consequences**
+- Positive: Encourages exploration ("what if I had 3 kids?"), builds understanding of tax rules, standard pattern for calculators, no "forgot to click submit" errors
+- Negative / trade-offs: More re-renders, localStorage writes on every keystroke (could debounce)
+- Revisit when: If adding expensive calculations (API calls) or if users request explicit save
+
+---
+
 ## Older decisions
 
 *(Add older ADRs below as the project grows.)*

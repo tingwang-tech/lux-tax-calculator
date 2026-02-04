@@ -12,7 +12,16 @@ const defaultProfile = {
   person2BirthYear: '',
   maritalStatus: 'single',
   children: 0,
+  isHomeOwner: false,
+  mortgageYearTier: '',
 }
+
+const MORTGAGE_YEAR_TIERS = [
+  { value: '0-1', label: 'Property became available this tax year or last year (full deduction applies)' },
+  { value: '2-5', label: '2–5 years after the first occupancy' },
+  { value: '6-10', label: '6–10 years after the first occupancy' },
+  { value: '11+', label: '11+ years after the first occupancy' },
+]
 
 function loadProfile() {
   try {
@@ -55,6 +64,11 @@ export default function ProfileSection({ profile, onProfileChange }) {
     // Clear person2 birth year if switching to single
     if (field === 'maritalStatus' && value === 'single') {
       newProfile.person2BirthYear = ''
+    }
+
+    // Clear mortgage year tier if switching to non-homeowner
+    if (field === 'isHomeOwner' && value === false) {
+      newProfile.mortgageYearTier = ''
     }
 
     onProfileChange(newProfile)
@@ -201,6 +215,53 @@ export default function ProfileSection({ profile, onProfileChange }) {
             className="mt-1.5 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
         </div>
+
+        {/* Owner of Primary Residence */}
+        <div>
+          <label
+            htmlFor="isHomeOwner"
+            className="block text-sm font-medium text-slate-700"
+          >
+            Owner of primary residence?
+          </label>
+          <select
+            id="isHomeOwner"
+            value={profile.isHomeOwner ? 'yes' : 'no'}
+            onChange={(e) => handleChange('isHomeOwner', e.target.value === 'yes')}
+            className="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        {/* Mortgage Year Tier (only shown when homeowner) */}
+        {profile.isHomeOwner && (
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="mortgageYearTier"
+              className="block text-sm font-medium text-slate-700"
+            >
+              Years since first occupancy
+            </label>
+            <select
+              id="mortgageYearTier"
+              value={profile.mortgageYearTier}
+              onChange={(e) => handleChange('mortgageYearTier', e.target.value)}
+              className="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="">Select...</option>
+              {MORTGAGE_YEAR_TIERS.map((tier) => (
+                <option key={tier.value} value={tier.value}>
+                  {tier.label}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1.5 text-xs text-slate-500">
+              For the year the property first became available and the year after, mortgage interest is generally fully deductible, unless you were already deducting interest on another main residence within the previous 5 years.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )

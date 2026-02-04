@@ -43,7 +43,7 @@ This document records what you learned each week while building the Luxembourg t
 
 ## Recent entries
 
-### Week of 2026-01-26 to 2026-02-04
+### Week of 2026-01-26 to 2026-02-04 (Weeks 1-2)
 
 #### What I learned
 
@@ -55,7 +55,10 @@ This document records what you learned each week while building the Luxembourg t
 - Testing workflow: `npm run dev` → browser → test → `Ctrl+C` → `git commit`
 - localStorage for profile persistence: save as JSON object, load on component mount
 - React useState and useEffect for form state management
-- Conditional rendering in React: show/hide Person 2 input based on marital status
+- Conditional rendering in React: show/hide fields based on state (marital status, homeowner)
+- Early return pattern in React: `if (condition) return null` to hide components
+- Data-driven UI: flags in data file (`isPerPerson`, `includesChildren`) control display logic
+- Utility functions for calculations: keep logic out of components, import from utils/
 
 **Domain (Luxembourg tax)**
 - Tax Class 2 is for married couples with children (most complex case)
@@ -64,6 +67,17 @@ This document records what you learned each week while building the Luxembourg t
 - Official source hierarchy: impotsdirects A-Z > guichet specific > gov announcements
 - Age calculation for home savings: 2026 - birthYear (not Date() objects)
 - Per-person vs household caps: Insurance doubles for married, commuting doesn't
+- **Children affect some caps but not others:**
+  - Insurance & loan interest: €672 × (1 + spouse + children) ← includes children
+  - Home savings: same formula ← includes children
+  - Mortgage interest: same formula ← includes children
+  - Private pension: €4,500 × (1 + spouse) ← adults only
+  - Employer pension: €1,200 × (1 + spouse) ← adults only
+- **Mortgage interest is complex:**
+  - Year 0-1: fully deductible (if no prior mortgage deduction in 5 years)
+  - Years 2-5: €4,000/person
+  - Years 6-10: €3,000/person
+  - Year 11+: €2,000/person
 
 **Process / tools**
 - PROJECT_CONTEXT.md serves as comprehensive AI assistant guide
@@ -72,6 +86,10 @@ This document records what you learned each week while building the Luxembourg t
 - Tool clarity: Perplexity = research, Claude Code = building, Claude Chat = strategy
 - Security prompts are normal (not errors to fear)
 - Weekly documentation updates work best as batch ritual (not daily)
+- **Two-prompt workflow is essential for tax accuracy:**
+  1. Perplexity: "Find official source for [rule]"
+  2. Claude Code: "Build feature using EXACTLY this verified info: [paste]"
+- Live updates UX (no submit button) works well for calculators/exploratory tools
 
 #### Challenges I faced
 - Cursor free plan hit limit after Week 1
@@ -79,6 +97,8 @@ This document records what you learned each week while building the Luxembourg t
 - Confusion about tool overlap between Perplexity and Claude Code
 - Understanding when to use which tool (three tools felt overwhelming)
 - Terminal security prompts seemed scary at first
+- Initial cap calculations were wrong (didn't include children for some deductions)
+- Mortgage interest rules were more complex than expected
 
 #### How I solved them
 - Installed Claude Code as Cursor alternative (included with Claude Pro)
@@ -86,14 +106,18 @@ This document records what you learned each week while building the Luxembourg t
 - Clarified tool roles: Perplexity = research ONLY, Claude Code = building ONLY
 - Created decision framework for tool selection
 - Learned security prompts are protective features
+- Used Perplexity to verify exact cap formulas from official sources
+- Created reusable prompt template for Perplexity tax research
 
 #### Next week I want to learn
-- [ ] How to calculate personalized caps based on age (home savings logic)
-- [ ] How to multiply caps by 2 for married couples (per-person categories only)
-- [ ] localStorage patterns: when to save, how to structure data
-- [ ] Input validation best practices in React
-- [ ] Tailwind form styling patterns
-- [ ] useEffect dependency array (when does component re-render?)
+- [x] How to calculate personalized caps based on age (home savings logic) ✅ Done
+- [x] How to multiply caps by 2 for married couples (per-person categories only) ✅ Done
+- [x] localStorage patterns: when to save, how to structure data ✅ Done
+- [x] Input validation best practices in React ✅ Done
+- [x] Tailwind form styling patterns ✅ Done
+- [ ] Progress bar visualization (Week 3)
+- [ ] Debounced input saving (Week 3)
+- [ ] Summary calculations across multiple cards (Week 3)
 
 ---
 

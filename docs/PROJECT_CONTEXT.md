@@ -11,7 +11,7 @@
 - **Owner:** Ting Wang (PM learning to code)
 - **Started:** January 26, 2026
 - **Repo:** https://github.com/tingwang-tech/lux-tax-calculator
-- **Status:** Week 1 ✅ Complete, Week 2 ⏳ In Progress
+- **Status:** Week 1 ✅ Complete, Week 2 ✅ Complete, Week 3 ⏳ Next
 
 ---
 
@@ -286,50 +286,47 @@ A web application that:
 
 ---
 
-### Week 2: Profile Section ⏳ IN PROGRESS (Jan 28, 2026)
+### Week 2: Profile Section ✅ COMPLETE (Feb 4, 2026)
 
 **Goal:** Add user inputs to personalize deduction caps
 
-**Features to Build:**
+**Features Built:**
 - Profile input section above deduction catalog
 - Input fields:
   - Person 1 birth year (number input, 1900-2026)
   - Person 2 birth year (number input, 1900-2026, shown only if married)
   - Number of children (number input, 0-10)
   - Marital status (dropdown: "Single" or "Married/Civil Union")
+  - Homeowner status (Yes/No dropdown)
+  - Mortgage year tier (conditional dropdown for homeowners)
 - Age calculation: `2026 - birthYear`
-- Validation:
-  - Birth years must be between 1900-2026
-  - Error message if invalid: "Please enter valid birth years (1900-2026)"
-- Home savings cap calculation:
-  - For single: If age ≤ 40 → €1,344, else → €672
-  - For married: Use YOUNGEST person's age, double the amount
-- Per-person cap multiplication:
-  - When married: multiply insurance, pensions, professional expenses, home savings, mortgage by 2
-  - Keep commuting and childcare as household caps (NOT doubled)
-- localStorage persistence:
-  - Save as JSON: `{person1BirthYear, person2BirthYear, children, maritalStatus}`
-  - Key: `luxTaxProfile`
-  - Load on page refresh
+- Validation: Birth years 1900-2026 with inline error messages
+- Home savings cap: Age-based (€1,344 ≤40, €672 >40), uses youngest for married
+- Per-person cap multiplication with `includesChildren` flag:
+  - Insurance, home savings, mortgage: includes children in multiplier
+  - Pensions, professional expenses: adults only
+  - Commuting, childcare: household caps (no multiplication)
+- localStorage persistence with `luxTaxProfile` key
+- Clear Profile button to reset all inputs
 
-**UI Updates:**
-- Update DeductionCard to show personalized caps
-  - Display: "€X × 2 (married) = €Y" when applicable
-  - Show age-adjusted home savings cap with explanation
-- Add "Clear Profile" button to reset
-- Show validation errors inline (red text below input)
+**UI Features:**
+- DeductionCard shows personalized caps with explanation (e.g., "€672 × 4 (2 adults + 2 children)")
+- Age note for home savings (e.g., "Age 35 ≤ 40: higher cap")
+- Mortgage interest card hidden when not homeowner
+- "Fully deductible" display for new homeowners (0-1 years)
+- Disclaimer about 5-year rule for full deduction
 
-**Files to Create/Modify:**
-- `src/components/ProfileSection.jsx` (NEW) - Profile input form
-- `src/utils/taxCalculations.js` (NEW) - Age and cap calculation logic
-- `src/App.jsx` (MODIFY) - Add ProfileSection, pass profile state to cards
-- `src/data/deductions.js` (MODIFY) - Add `isPerPerson` flag to each deduction
+**Files Created/Modified:**
+- `src/components/ProfileSection.jsx` (NEW) - Profile input form with validation
+- `src/utils/taxCalculations.js` (NEW) - Age, multiplier, and cap calculation logic
+- `src/components/DeductionCard.jsx` (MODIFIED) - Personalized cap display
+- `src/data/deductions.js` (MODIFIED) - Added `isPerPerson`, `includesChildren`, `requiresHomeOwner`, `mortgageCaps` flags
+- `src/App.jsx` (MODIFIED) - Profile state management
 
-**Technical Constraints:**
-- NO database yet (use localStorage only)
-- NO tax filing features (future scope)
-- NO complex date calculations (just year-based)
-- NO TypeScript (vanilla JavaScript for now)
+**Key Learnings:**
+- Two-prompt workflow (Perplexity → Claude Code) essential for tax accuracy
+- Children affect some caps but not others (verified via official sources)
+- Mortgage interest rules are complex (year tiers, 5-year rule)
 
 ---
 
@@ -414,20 +411,20 @@ A web application that:
 
 ## Project Status & Current Work
 
-### As of 2026-01-29:
-- ✅ Week 1 complete
+### As of 2026-02-04:
+- ✅ Week 1 complete (deduction catalog)
+- ✅ Week 2 complete (profile section with personalized caps)
 - ✅ GitHub repository live
 - ✅ Documentation structure in place
-- ✅ Git workflow established
-- ⏳ Week 2 starting (profile section)
-- ⏳ Transitioning from Cursor to Claude Code (Cursor free plan limit hit)
+- ✅ Claude Code workflow established
+- ⏳ Week 3 next (expense tracking)
 
-### Next Immediate Tasks:
-1. Set up Claude Code CLI tool
-2. Build ProfileSection.jsx with birth year inputs
-3. Implement age-based home savings calculation
-4. Add marital status logic for cap doubling
-5. Save/load profile from localStorage
+### Next Immediate Tasks (Week 3):
+1. Add expense input to each deduction card
+2. Implement progress bar visualization
+3. Calculate unutilized amounts
+4. Add summary section with totals
+5. Save/load expenses from localStorage
 
 ---
 
@@ -642,15 +639,18 @@ A: Possible paths: (1) Ad-supported free version, (2) Premium features (multi-ye
 - [x] Git + GitHub set up
 - [x] Documentation structure created
 
-### Week 2 Success (Checklist)
-- [ ] Profile inputs functional (birth years, marital status)
-- [ ] Age calculation correct (2026 - birthYear)
-- [ ] Home savings cap adjusts based on age (€1,344 vs €672)
-- [ ] Married doubles per-person caps (shows "€X × 2 = €Y")
-- [ ] localStorage saves/loads profile
-- [ ] Input validation works (1900-2026)
-- [ ] No console errors
-- [ ] Git commits after each feature
+### Week 2 Success ✅
+- [x] Profile inputs functional (birth years, marital status, children, homeowner)
+- [x] Age calculation correct (2026 - birthYear)
+- [x] Home savings cap adjusts based on age (€1,344 vs €672)
+- [x] Married doubles per-person caps (shows "€X × 2 (married)")
+- [x] Children increase caps where applicable (shows "€X × 4 (2 adults + 2 children)")
+- [x] localStorage saves/loads profile
+- [x] Input validation works (1900-2026)
+- [x] Mortgage interest conditional logic (homeowner + year tier)
+- [x] Fully deductible case for new homeowners
+- [ ] No console errors (verify with `npm run dev`)
+- [ ] Git commits for Week 2 features
 
 ### Week 3 Success (Checklist)
 - [ ] Expense inputs added to all cards
