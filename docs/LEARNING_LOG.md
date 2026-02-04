@@ -43,6 +43,60 @@ This document records what you learned each week while building the Luxembourg t
 
 ## Recent entries
 
+### Week of 2026-01-26 to 2026-02-04
+
+#### What I learned
+
+**Technical**
+- Claude Code installation and authentication: `npm install -g @anthropic-ai/claude-code` then `claude auth`
+- Mac requires `sudo` for global npm packages (permission denied error normal)
+- Terminal security prompt (trust folder) is a safety feature - press 1 to proceed
+- Two-tool workflow: Perplexity Pro for research, Claude Code for direct file building
+- Testing workflow: `npm run dev` → browser → test → `Ctrl+C` → `git commit`
+- localStorage for profile persistence: save as JSON object, load on component mount
+- React useState and useEffect for form state management
+- Conditional rendering in React: show/hide Person 2 input based on marital status
+
+**Domain (Luxembourg tax)**
+- Tax Class 2 is for married couples with children (most complex case)
+- 8 major deduction categories with specific 2026 caps
+- 2026 private pension cap increased to €4,500 per person (major change from €3,200!)
+- Official source hierarchy: impotsdirects A-Z > guichet specific > gov announcements
+- Age calculation for home savings: 2026 - birthYear (not Date() objects)
+- Per-person vs household caps: Insurance doubles for married, commuting doesn't
+
+**Process / tools**
+- PROJECT_CONTEXT.md serves as comprehensive AI assistant guide
+- Universal vibe coding skill: transferable methodology across all future projects
+- Constraint blocks in prompts prevent AI hallucinations (MUST HAVE / MUST NOT)
+- Tool clarity: Perplexity = research, Claude Code = building, Claude Chat = strategy
+- Security prompts are normal (not errors to fear)
+- Weekly documentation updates work best as batch ritual (not daily)
+
+#### Challenges I faced
+- Cursor free plan hit limit after Week 1
+- npm permission denied error when installing Claude Code globally
+- Confusion about tool overlap between Perplexity and Claude Code
+- Understanding when to use which tool (three tools felt overwhelming)
+- Terminal security prompts seemed scary at first
+
+#### How I solved them
+- Installed Claude Code as Cursor alternative (included with Claude Pro)
+- Used `sudo npm install` to get admin permission on Mac
+- Clarified tool roles: Perplexity = research ONLY, Claude Code = building ONLY
+- Created decision framework for tool selection
+- Learned security prompts are protective features
+
+#### Next week I want to learn
+- [ ] How to calculate personalized caps based on age (home savings logic)
+- [ ] How to multiply caps by 2 for married couples (per-person categories only)
+- [ ] localStorage patterns: when to save, how to structure data
+- [ ] Input validation best practices in React
+- [ ] Tailwind form styling patterns
+- [ ] useEffect dependency array (when does component re-render?)
+
+---
+
 ### Week of 2026-01-20 to 2026-01-26
 
 #### What I learned
