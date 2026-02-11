@@ -36,6 +36,41 @@ This document tracks weekly progress: what was built, what was fixed, and what w
 
 ## Recent entries
 
+### Week of 2026-02-04 to 2026-02-11 (Week 3)
+
+#### Done
+- [x] Expense input on each deduction card (number input with €)
+- [x] Progress bar visualization with color coding (blue 0-50%, yellow 51-99%, green 100%)
+- [x] Unutilized amount display ("Unused: €X of €Y")
+- [x] Over-cap warning with emoji ("⚠️ Exceeded by €X")
+- [x] Fully utilized indicator ("✓ Fully utilized")
+- [x] localStorage persistence for expenses (`luxTaxExpenses` key)
+- [x] SummarySection component with total utilized, total caps, unutilized
+- [x] Overall utilization percentage with progress bar
+- [x] Mobile-friendly stepper buttons (+/−) for children count and expense inputs
+- [x] Placeholder display for empty inputs (shows "0" as placeholder, not as value)
+- [x] Hidden native browser spinners for cleaner mobile UX
+- [x] Deployed to Vercel: https://lux-tax-calculator.vercel.app
+
+#### Changed
+- `src/App.jsx`: Added expenses state management with localStorage persistence
+- `src/components/DeductionCard.jsx`: Added expense input, progress bar, utilization status, mobile stepper buttons
+- `src/components/SummarySection.jsx`: NEW - Overall summary with totals and utilization percentage
+- `src/components/ProfileSection.jsx`: Added mobile-friendly +/− stepper buttons for children count
+- `src/utils/taxCalculations.js`: Added formatCurrency export
+
+#### Fixed
+- Mobile number input UX (added large touch-friendly +/− buttons)
+- Children count showing "0" instead of placeholder
+
+#### Deferred / Next week
+- [ ] Week 4: Tax savings calculation (35% estimated rate)
+- [ ] Week 4: Prioritized recommendations by impact
+- [ ] Week 4: Bar chart visualization
+- [ ] Week 4: Export/print functionality
+
+---
+
 ### Week of 2026-01-26 to 2026-02-04 (Weeks 1-2)
 
 #### Done
@@ -77,9 +112,9 @@ This document tracks weekly progress: what was built, what was fixed, and what w
 - Mortgage interest source URL (updated to official A-Z entry)
 
 #### Deferred / Next week
-- [ ] Week 3: Expense tracking with progress bars
-- [ ] Week 3: Unutilized amount calculations
-- [ ] Week 3: Summary section with totals
+- [x] Week 3: Expense tracking with progress bars ✅ Done
+- [x] Week 3: Unutilized amount calculations ✅ Done
+- [x] Week 3: Summary section with totals ✅ Done
 
 ---
 

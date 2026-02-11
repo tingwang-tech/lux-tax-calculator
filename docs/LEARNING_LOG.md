@@ -43,6 +43,48 @@ This document records what you learned each week while building the Luxembourg t
 
 ## Recent entries
 
+### Week of 2026-02-04 to 2026-02-11 (Week 3)
+
+#### What I learned
+
+**Technical**
+- Progress bar implementation: simple div with dynamic width via `style={{ width: \`${percentage}%\` }}`
+- Color coding with conditional Tailwind classes: `getProgressColor()` returns different `bg-` classes
+- Mobile number inputs are notoriously hard to use (tiny browser spinners are nearly impossible to tap)
+- Better mobile pattern: custom +/− stepper buttons with large touch targets (40px minimum)
+- CSS to hide native number spinners: `[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none`
+- Placeholder vs value: use `value={count === 0 ? '' : count}` with `placeholder="0"` for cleaner UX
+- Vercel deployment is straightforward: connect GitHub repo, auto-deploys on push
+- `npm run build` creates production bundle in `dist/` folder
+
+**Domain (Luxembourg tax)**
+- Expense tracking helps visualize utilization: seeing "Unused: €2,500" is more actionable than just seeing the cap
+- Summary totals across categories reveal overall tax optimization opportunity
+- Some deductions (fully deductible mortgage interest) can't have progress bars - need special handling
+
+**Process / tools**
+- Vercel CLI: `npm install -g vercel` then `vercel` to deploy
+- GitHub integration with Vercel enables automatic deployments on push
+- Beta testing with real URL helps catch UX issues (like mobile number inputs)
+- Quick iteration cycle: fix → commit → push → Vercel auto-deploys in ~1 minute
+
+#### Challenges I faced
+- Mobile users couldn't easily use number input steppers (arrows too small)
+- Children count showing "0" felt like data, not like an empty input waiting for user
+
+#### How I solved them
+- Added custom +/− buttons with 40px touch targets for mobile-friendly input
+- Changed to show placeholder "0" when value is 0, making it feel like an empty input
+- Hid native browser spinners for cleaner look (CSS appearance:textfield)
+
+#### Next week I want to learn
+- [ ] Tax savings estimation (what marginal rate to use?)
+- [ ] Chart library integration (Recharts)
+- [ ] PDF export or print-friendly view
+- [ ] Prioritized recommendations algorithm
+
+---
+
 ### Week of 2026-01-26 to 2026-02-04 (Weeks 1-2)
 
 #### What I learned
@@ -115,9 +157,9 @@ This document records what you learned each week while building the Luxembourg t
 - [x] localStorage patterns: when to save, how to structure data ✅ Done
 - [x] Input validation best practices in React ✅ Done
 - [x] Tailwind form styling patterns ✅ Done
-- [ ] Progress bar visualization (Week 3)
-- [ ] Debounced input saving (Week 3)
-- [ ] Summary calculations across multiple cards (Week 3)
+- [x] Progress bar visualization ✅ Done (Week 3)
+- [x] Summary calculations across multiple cards ✅ Done (Week 3)
+- Debounced input saving: Decided against (immediate save works well for this use case)
 
 ---
 

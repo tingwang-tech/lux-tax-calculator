@@ -11,7 +11,8 @@
 - **Owner:** Ting Wang (PM learning to code)
 - **Started:** January 26, 2026
 - **Repo:** https://github.com/tingwang-tech/lux-tax-calculator
-- **Status:** Week 1 ✅ Complete, Week 2 ✅ Complete, Week 3 ⏳ Next
+- **Status:** Week 1 ✅ Complete, Week 2 ✅ Complete, Week 3 ✅ Complete, Week 4 ⏳ Next
+- **Live URL:** https://lux-tax-calculator.vercel.app
 
 ---
 
@@ -54,7 +55,7 @@ A web application that:
 - **Styling:** Tailwind CSS 3.4 (utility-first, rapid prototyping)
 - **Storage:** localStorage (browser storage, no backend yet)
 - **Version Control:** Git + GitHub
-- **Deployment:** Vercel (planned for Week 4)
+- **Deployment:** Vercel (deployed Week 3): https://lux-tax-calculator.vercel.app
 
 ### Why These Choices?
 
@@ -330,44 +331,51 @@ A web application that:
 
 ---
 
-### Week 3: Expense Tracking ⏳ PLANNED (Feb 4, 2026)
+### Week 3: Expense Tracking ✅ COMPLETE (Feb 11, 2026)
 
 **Goal:** Track current expenses and show gap analysis
 
-**Features to Build:**
-- Add expense input to each deduction card (below description)
-  - Number input: "Your current expenses (€)"
-  - Min: 0, Max: [the cap amount]
-  - Step: 1 (whole euros only)
+**Features Built:**
+- Expense input on each deduction card (below description)
+  - Number input with € prefix
+  - Mobile-friendly +/− stepper buttons (€100 increments)
+  - Placeholder "0" when empty
 - Progress bar visualization:
   - Show: (current / cap) × 100%
   - Color coding:
-    - 0-50%: Blue (#2563eb) - room to grow
-    - 51-99%: Yellow (#eab308) - approaching limit
-    - 100%: Green (#16a34a) - fully utilized
+    - 0-50%: Blue (bg-blue-500) - room to grow
+    - 51-99%: Yellow (bg-yellow-500) - approaching limit
+    - 100%: Green (bg-green-500) - fully utilized
 - Unutilized amount display:
   - Text: "Unused: €X,XXX of €Y,YYY"
-  - If over cap: "⚠️ You've exceeded the cap by €X"
+  - If over cap: "⚠️ Exceeded by €X"
   - If at cap: "✓ Fully utilized"
 - localStorage persistence:
-  - Save as JSON: `{expenses: {insurance: 0, privatePension: 0, ...}}`
+  - Save as JSON object with deduction IDs as keys
   - Key: `luxTaxExpenses`
-  - Auto-save on input change (debounced)
+  - Auto-save on input change (immediate, no debounce)
 - Summary section at bottom:
   - Total utilized: sum of all expenses
-  - Total unutilized: sum of all gaps
-  - Utilization percentage: (total used / total caps) × 100%
+  - Total caps: sum of all personalized caps
+  - Unutilized: difference
+  - Overall utilization percentage with progress bar
+- Mobile UX improvements:
+  - Custom +/− buttons for children count (step by 1)
+  - Custom +/− buttons for expense inputs (step by €100)
+  - 40px touch targets for easy mobile tapping
+  - Hidden native browser spinners
+- Deployed to Vercel: https://lux-tax-calculator.vercel.app
 
-**Files to Create/Modify:**
-- `src/components/ExpenseTracker.jsx` (NEW) - Expense input + progress bar component
-- `src/components/SummaryCard.jsx` (NEW) - Overall summary statistics
-- `src/utils/taxCalculations.js` (MODIFY) - Add gap calculation logic
-- `src/App.jsx` (MODIFY) - Add expense state management
+**Files Created/Modified:**
+- `src/components/SummarySection.jsx` (NEW) - Overall summary statistics
+- `src/components/DeductionCard.jsx` (MODIFIED) - Expense input + progress bar + stepper buttons
+- `src/components/ProfileSection.jsx` (MODIFIED) - Mobile-friendly stepper buttons
+- `src/App.jsx` (MODIFIED) - Expense state management + localStorage
 
-**Technical Constraints:**
-- NO tax savings calculation yet (that's Week 4)
-- NO export functionality yet (that's Week 4)
-- NO charts/graphs yet (that's Week 4)
+**Key Learnings:**
+- Mobile number inputs need custom stepper buttons (browser defaults are too small)
+- Immediate save (no debounce) works well for calculators
+- Progress bars are simple: div with dynamic width percentage
 
 ---
 
@@ -411,20 +419,22 @@ A web application that:
 
 ## Project Status & Current Work
 
-### As of 2026-02-04:
+### As of 2026-02-11:
 - ✅ Week 1 complete (deduction catalog)
 - ✅ Week 2 complete (profile section with personalized caps)
+- ✅ Week 3 complete (expense tracking with progress bars)
 - ✅ GitHub repository live
 - ✅ Documentation structure in place
 - ✅ Claude Code workflow established
-- ⏳ Week 3 next (expense tracking)
+- ✅ Deployed to Vercel: https://lux-tax-calculator.vercel.app
+- ⏳ Week 4 next (optimization dashboard)
 
-### Next Immediate Tasks (Week 3):
-1. Add expense input to each deduction card
-2. Implement progress bar visualization
-3. Calculate unutilized amounts
-4. Add summary section with totals
-5. Save/load expenses from localStorage
+### Next Immediate Tasks (Week 4):
+1. Tax savings calculation (35% estimated effective rate)
+2. Prioritized recommendations by impact
+3. Simple bar chart visualization (Recharts)
+4. Export/print functionality
+5. Final documentation updates
 
 ---
 
@@ -652,14 +662,15 @@ A: Possible paths: (1) Ad-supported free version, (2) Premium features (multi-ye
 - [ ] No console errors (verify with `npm run dev`)
 - [ ] Git commits for Week 2 features
 
-### Week 3 Success (Checklist)
-- [ ] Expense inputs added to all cards
-- [ ] Progress bars show utilization visually
-- [ ] Colors change based on percentage (blue/yellow/green)
-- [ ] Unutilized amounts calculated correctly
-- [ ] Summary section shows totals
-- [ ] localStorage saves/loads expenses
-- [ ] No accuracy bugs in calculations
+### Week 3 Success ✅
+- [x] Expense inputs added to all cards
+- [x] Progress bars show utilization visually
+- [x] Colors change based on percentage (blue/yellow/green)
+- [x] Unutilized amounts calculated correctly
+- [x] Summary section shows totals
+- [x] localStorage saves/loads expenses
+- [x] Mobile-friendly stepper buttons
+- [x] Deployed to Vercel
 
 ### Week 4 Success (Checklist)
 - [ ] Tax savings estimated (using 35% rate)
@@ -710,7 +721,7 @@ A: Possible paths: (1) Ad-supported free version, (2) Premium features (multi-ye
 
 ## Document Maintenance
 
-**Last Updated:** 2026-01-29
+**Last Updated:** 2026-02-11
 **Update Frequency:** Weekly (every Friday/Sunday)
 **Owner:** Ting Wang
 
