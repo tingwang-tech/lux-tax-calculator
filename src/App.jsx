@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import DeductionCard from './components/DeductionCard.jsx'
 import ProfileSection, { loadProfile } from './components/ProfileSection.jsx'
 import SummarySection from './components/SummarySection.jsx'
@@ -74,6 +75,7 @@ function App() {
           Caps shown are simplified for learning purposes; always confirm details on the official sources linked in each card.
         </footer>
       </div>
+      <Analytics />
     </div>
   )
 }
