@@ -205,15 +205,36 @@ export default function ProfileSection({ profile, onProfileChange }) {
           >
             Number of Children
           </label>
-          <input
-            type="number"
-            id="children"
-            min={0}
-            max={MAX_CHILDREN}
-            value={profile.children}
-            onChange={(e) => handleChange('children', Math.max(0, Math.min(MAX_CHILDREN, Number(e.target.value) || 0)))}
-            className="mt-1.5 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
+          <div className="mt-1.5 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleChange('children', Math.max(0, profile.children - 1))}
+              disabled={profile.children <= 0}
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-lg font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label="Decrease children count"
+            >
+              −
+            </button>
+            <input
+              type="number"
+              id="children"
+              min={0}
+              max={MAX_CHILDREN}
+              placeholder="0"
+              value={profile.children === 0 ? '' : profile.children}
+              onChange={(e) => handleChange('children', Math.max(0, Math.min(MAX_CHILDREN, Number(e.target.value) || 0)))}
+              className="block w-full flex-1 rounded-lg border border-slate-300 px-3 py-2 text-center text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            />
+            <button
+              type="button"
+              onClick={() => handleChange('children', Math.min(MAX_CHILDREN, profile.children + 1))}
+              disabled={profile.children >= MAX_CHILDREN}
+              className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 bg-white text-lg font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label="Increase children count"
+            >
+              +
+            </button>
+          </div>
         </div>
 
         {/* Owner of Primary Residence */}

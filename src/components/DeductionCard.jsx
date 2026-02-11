@@ -125,19 +125,39 @@ export default function DeductionCard({ deduction, profile, expense = 0, onExpen
           >
             Your expenses
           </label>
-          <div className="relative">
-            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
-              €
-            </span>
-            <input
-              type="number"
-              id={`expense-${deduction.id}`}
-              min={0}
-              step={1}
-              value={expense}
-              onChange={handleExpenseChange}
-              className="block w-full rounded-lg border border-slate-300 py-2 pl-7 pr-3 text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            />
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onExpenseChange(Math.max(0, expense - 100))}
+              disabled={expense <= 0}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-300 bg-white text-lg font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              aria-label="Decrease expense by €100"
+            >
+              −
+            </button>
+            <div className="relative flex-1">
+              <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+                €
+              </span>
+              <input
+                type="number"
+                id={`expense-${deduction.id}`}
+                min={0}
+                step={100}
+                placeholder="0"
+                value={expense === 0 ? '' : expense}
+                onChange={handleExpenseChange}
+                className="block w-full rounded-lg border border-slate-300 py-2 pl-7 pr-3 text-center text-sm text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => onExpenseChange(expense + 100)}
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-300 bg-white text-lg font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label="Increase expense by €100"
+            >
+              +
+            </button>
           </div>
 
           {/* Progress bar */}
