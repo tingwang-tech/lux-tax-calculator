@@ -221,6 +221,55 @@ This document records why certain architecture and project decisions were made, 
 
 ---
 
+### ADR-008: Scrap Week 4 "Optimization Dashboard" features
+
+**Date:** 2026-02-12
+
+**Context**
+- Original Week 4 plan included: tax savings estimation, prioritized recommendations, bar chart visualization, export/print
+- After completing Week 3 with progress bars and gap displays, re-evaluated whether these features add real value
+- Applied "feature bloat" filter before building
+
+**Options considered**
+1. **Build all four features as planned:** Complete the original vision
+2. **Build some features:** Pick highest-value items
+3. **Scrap all four:** Recognize that existing UI already solves the problem
+
+**Analysis of each feature:**
+
+1. **Tax savings estimation (€X unused → "Save €Y"):**
+   - Multiplying by 35% doesn't change behavior - people either care about deductions or they don't
+   - 35% assumption is inaccurate (20% for low earners, 42% for high earners)
+   - Verdict: Weak value
+
+2. **Prioritized recommendations:**
+   - Progress bars already show utilization per card at a glance
+   - "Private pension is 20% used" is visible without a separate text section
+   - Verdict: Completely redundant - the visual gap IS the recommendation
+
+3. **Bar chart visualization:**
+   - 8 cards with progress bars already show relative utilization
+   - Same data, different pixels - no new insight
+   - Would only add value for time-series comparison (2025 vs 2026)
+   - Verdict: No value - card layout IS the visualization
+
+4. **Export/Print:**
+   - Users can screenshot
+   - PDF generation is complex for minimal benefit
+   - Verdict: Not worth the effort
+
+**Decision**
+- We chose: Scrap all four Week 4 features
+- In practice: Week 3 completion = project MVP complete. Focus shifts to polish, testing, or new project.
+
+**Consequences**
+- Positive: Avoided feature bloat, saved development time, kept app simple and focused
+- Positive: Demonstrates PM skill of knowing when NOT to build
+- Negative / trade-offs: None identified - these features genuinely don't add value
+- Revisit when: If user feedback specifically requests these features with clear use cases
+
+---
+
 ## Older decisions
 
 *(Add older ADRs below as the project grows.)*

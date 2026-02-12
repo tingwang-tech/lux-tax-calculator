@@ -78,10 +78,9 @@ This document records what you learned each week while building the Luxembourg t
 - Hid native browser spinners for cleaner look (CSS appearance:textfield)
 
 #### Next week I want to learn
-- [ ] Tax savings estimation (what marginal rate to use?)
-- [ ] Chart library integration (Recharts)
-- [ ] PDF export or print-friendly view
-- [ ] Prioritized recommendations algorithm
+- ❌ SCRAPPED: Tax savings, charts, PDF export, recommendations - all determined to be feature bloat
+- ✅ Learned: Knowing when NOT to build is a critical PM skill
+- ✅ Learned: Progress bars and gap displays already solve the user problem without extra complexity
 
 ---
 

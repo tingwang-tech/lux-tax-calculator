@@ -11,7 +11,7 @@
 - **Owner:** Ting Wang (PM learning to code)
 - **Started:** January 26, 2026
 - **Repo:** https://github.com/tingwang-tech/lux-tax-calculator
-- **Status:** Week 1 ✅ Complete, Week 2 ✅ Complete, Week 3 ✅ Complete, Week 4 ⏳ Next
+- **Status:** Week 1 ✅ Complete, Week 2 ✅ Complete, Week 3 ✅ Complete, Week 4 ❌ Scrapped (MVP Complete)
 - **Live URL:** https://lux-tax-calculator.vercel.app
 
 ---
@@ -379,47 +379,40 @@ A web application that:
 
 ---
 
-### Week 4: Optimization Dashboard ⏳ PLANNED (Feb 11, 2026)
+### Week 4: Originally Planned "Optimization Dashboard" ❌ SCRAPPED (Feb 12, 2026)
 
-**Goal:** Show potential savings and recommendations
+**Original Goal:** Show potential savings and recommendations
 
-**Features to Build:**
-- Tax savings calculation:
-  - Formula: `unutilized × effective_tax_rate`
-  - Use conservative estimate: 35% effective rate (Luxembourg middle bracket)
-  - Display: "Potential additional tax savings: €X,XXX per year"
-  - Disclaimer: "Based on 35% estimated effective tax rate. Actual savings depend on total income."
-- Prioritized recommendations (sorted by impact):
-  - Show top 3 categories with most unused room
-  - For each: "Consider increasing [category] by €X to save €Y in taxes"
-  - Link to official source for that category
-- Visualization (simple bar chart):
-  - Show utilized vs unutilized for each category
-  - Use Recharts library (already available in React ecosystem)
-- Export/Print functionality:
-  - Button: "Export Summary"
-  - Generate PDF or printable HTML
-  - Include: profile, all caps, current expenses, recommendations
-- Vercel deployment:
-  - Deploy to production
-  - Custom domain (optional): lux-tax-calculator.vercel.app
+**Features Scrapped (and why):**
 
-**Files to Create/Modify:**
-- `src/components/OptimizationDashboard.jsx` (NEW) - Savings + recommendations
-- `src/components/RecommendationCard.jsx` (NEW) - Individual recommendation display
-- `src/utils/taxCalculations.js` (MODIFY) - Add tax savings calculations
-- `src/utils/exportPDF.js` (NEW) - PDF generation logic
+1. **Tax savings estimation** (€X unused → "Save €Y")
+   - Multiplying by 35% doesn't change user behavior
+   - Rate assumption is inaccurate (20% for low earners, 42% for high earners)
+   - If users see the gap, they already understand the opportunity
 
-**Technical Notes:**
-- For charts: Use Recharts (npm install recharts)
-- For PDF: Use html2canvas + jsPDF or browser print
-- Tax rate: Use 35% as conservative middle estimate (Luxembourg rates: 0-42%)
+2. **Prioritized recommendations**
+   - Progress bars already show utilization at a glance
+   - A text-based recommendation section would just repeat what the visual gap shows
+   - The visual gap IS the recommendation
+
+3. **Bar chart visualization**
+   - 8 cards with progress bars already show relative utilization
+   - Same data, different pixels - no new insight
+   - Would only add value for time-series comparison (not in scope)
+
+4. **Export/Print**
+   - Users can screenshot
+   - PDF generation complexity not worth the minimal benefit
+
+**Decision:** See ADR-008 in DECISIONS.md
+
+**Key Learning:** Knowing when NOT to build is a critical PM skill. The MVP (Weeks 1-3) already solves the user problem.
 
 ---
 
 ## Project Status & Current Work
 
-### As of 2026-02-11:
+### As of 2026-02-12:
 - ✅ Week 1 complete (deduction catalog)
 - ✅ Week 2 complete (profile section with personalized caps)
 - ✅ Week 3 complete (expense tracking with progress bars)
@@ -427,14 +420,12 @@ A web application that:
 - ✅ Documentation structure in place
 - ✅ Claude Code workflow established
 - ✅ Deployed to Vercel: https://lux-tax-calculator.vercel.app
-- ⏳ Week 4 next (optimization dashboard)
+- ✅ Vercel Analytics enabled
+- ❌ Week 4 scrapped (feature bloat - see ADR-008)
+- 🎉 **MVP COMPLETE**
 
-### Next Immediate Tasks (Week 4):
-1. Tax savings calculation (35% estimated effective rate)
-2. Prioritized recommendations by impact
-3. Simple bar chart visualization (Recharts)
-4. Export/print functionality
-5. Final documentation updates
+### Project Complete
+The Luxembourg Tax Calculator MVP is feature-complete. Progress bars and gap displays provide all the value users need without additional complexity.
 
 ---
 
@@ -672,14 +663,16 @@ A: Possible paths: (1) Ad-supported free version, (2) Premium features (multi-ye
 - [x] Mobile-friendly stepper buttons
 - [x] Deployed to Vercel
 
-### Week 4 Success (Checklist)
-- [ ] Tax savings estimated (using 35% rate)
-- [ ] Recommendations prioritized by impact
-- [ ] Simple visualization (bar chart)
-- [ ] Export/print functionality works
-- [ ] Deployed to Vercel (live URL)
-- [ ] All documentation updated
-- [ ] Project complete and portfolio-ready
+### Week 4 ❌ SCRAPPED
+Original features (tax savings, recommendations, charts, export) determined to be feature bloat.
+See ADR-008 in DECISIONS.md for full rationale.
+
+### Project Success ✅
+- [x] MVP feature-complete (Weeks 1-3)
+- [x] Deployed to Vercel: https://lux-tax-calculator.vercel.app
+- [x] Vercel Analytics enabled
+- [x] All documentation updated
+- [x] Portfolio-ready
 
 ---
 

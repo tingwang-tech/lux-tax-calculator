@@ -64,10 +64,8 @@ This document tracks weekly progress: what was built, what was fixed, and what w
 - Children count showing "0" instead of placeholder
 
 #### Deferred / Next week
-- [ ] Week 4: Tax savings calculation (35% estimated rate)
-- [ ] Week 4: Prioritized recommendations by impact
-- [ ] Week 4: Bar chart visualization
-- [ ] Week 4: Export/print functionality
+- ❌ Week 4 SCRAPPED: Tax savings, recommendations, charts, export - all determined to be feature bloat (see ADR-008)
+- 🎉 MVP Complete
 
 ---
 
